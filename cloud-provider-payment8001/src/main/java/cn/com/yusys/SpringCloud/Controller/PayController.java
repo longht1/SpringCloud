@@ -80,4 +80,9 @@ public class PayController {
 //        }
         return  Serverport;
     }
+    //zipkin和Sluoth
+    @GetMapping("/payment/zipkin")
+    public String paymentzipkin(){
+        return "hi ,i am paymentzipkin server fall back,welcome to yusys,哈哈";
+    }
 }

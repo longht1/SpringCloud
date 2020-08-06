@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: cloud-payment-service
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      #采样率介于0到1.1表示全部采集
+      probability: 1
   datasource:
     driver-class-name: com.mysql.jdbc.Driver        #mysql驱动包
     url: jdbc:mysql://127.0.0.1:3306/db2020?serverTimezone=GMT%2B8

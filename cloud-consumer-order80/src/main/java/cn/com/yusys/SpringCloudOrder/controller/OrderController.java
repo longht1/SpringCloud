@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class OrderController {
     //未集成支付模块时
-   // private static final String Payment_url ="http://localhost:8001";
+    //private static final String Payment_url ="http://localhost:8001";
     private static final String Payment_url ="http://CLOUD-PAYMENT-SERVICE";
     @Resource
     private RestTemplate restTemplate;
@@ -31,14 +31,14 @@ public class OrderController {
     @Resource
     private DiscoveryClient discoveryClient;
 
-    @GetMapping("/consumer/Payment/creat")
+    @GetMapping("/consumer/payment/creat")
     public CommonResult<Payment> creat(Payment payment){
-        return restTemplate.postForObject(Payment_url+"/Payment/creat",payment,CommonResult.class);
+        return restTemplate.postForObject(Payment_url+"/payment/creat",payment,CommonResult.class);
     }
-    @GetMapping("/consumer/Payment/get/{id}")
+    @GetMapping("/consumer/payment/get/{id}")
     public CommonResult<Payment> getPaymet(@PathVariable("id") Long id){
         System.out.println("1111"+id);
-        return restTemplate.getForObject(Payment_url+"/Payment/get/"+id,CommonResult.class);
+        return restTemplate.getForObject(Payment_url+"/payment/get/"+id,CommonResult.class);
     }
     @GetMapping("/consumer/Payment/entity/{id}")
     public CommonResult<Payment> getPaymet1(@PathVariable("id") Long id){
@@ -64,5 +64,9 @@ public class OrderController {
         ServiceInstance serviceInstance = loadBalancer.instances(instances);
         URI uri = serviceInstance.getUri();
         return restTemplate.getForObject(uri+"/payment/lb",String.class);
+    }
+    @GetMapping("/consumer/payment/zipkin")
+    public String paymentzipkin(){
+        return restTemplate.getForObject(Payment_url+"/payment/zipkin",String.class);
     }
 }
