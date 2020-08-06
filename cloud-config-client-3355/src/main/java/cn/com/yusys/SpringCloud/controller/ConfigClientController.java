@@ -9,14 +9,13 @@ package cn.com.yusys.SpringCloud.controller;
 @RefreshScope
 public class ConfigClientController {
 
-    @Value("${config.info}")
-    private String configInfo;  //要访问的3344上的信息
+    @Value("${server.port}")
+    private String serverPort;
+    @Value(("${config.info}"))
+    private String configInfo;
 
-//    @Value("${server.port}")
-//    private String Serverport;
-
-    @GetMapping("/configInfo")	//请求地址
+    @GetMapping("/configInfo")
     public String getConfigInfo(){
-        return configInfo;
+        return "serverPort: "+serverPort+"\t\n\n configInfo: "+configInfo;
     }
 }
