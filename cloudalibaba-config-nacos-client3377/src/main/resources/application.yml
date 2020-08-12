@@ -1,0 +1,5 @@
+#application.yml
+spring:
+  profiles:
+    #active: test #开发环境
+     active: dev #开发环境

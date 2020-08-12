@@ -34,6 +34,9 @@
     <module>cloudalibaba-provider-payment9002</module>
     <module>cloudalibaba-consumer-nacos-order83</module>
       <module>cloudalibaba-config-nacos-client3377</module>
+      <module>cloudalibaba-sentinel-service8401</module>
+      <module>alibaba-seata-order-service2001</module>
+      <module>alibaba-seata-storage-service2002</module>
   </modules>
 
   <name>Maven</name>
