@@ -5,6 +5,7 @@ import cn.com.yusys.SpringCloud.domian.Order;
 import cn.com.yusys.SpringCloud.service.AccountService;
 import cn.com.yusys.SpringCloud.service.OrderService;
 import cn.com.yusys.SpringCloud.service.StorageService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +29,21 @@ public class OrderServiceImpl implements OrderService {
      * @param order 订单对象
      */
     @Override
-    // @GlobalTransactional(name = "wsy-create-order", rollbackFor = Exception.class)
+    @GlobalTransactional(name = "wsy-create-order", rollbackFor = Exception.class)
     public void create(Order order) {
         // 1 新建订单
-        log.info("----->开始新建订单");
+        log.info("----->开始新建订单  t_order");
         orderDao.create(order);
         // 2 扣减库存
-        log.info("----->订单微服务开始调用库存,做扣减Count");
+        log.info("----->订单微服务开始调用库存,做扣减Count t_storage");
         storageService.decrease(order.getProductId(), order.getCount());
         log.info("----->订单微服务开始调用库存,做扣减End");
         // 3 扣减账户
-        log.info("----->订单微服务开始调用账户,做扣减Money");
+        log.info("----->订单微服务开始调用账户,做扣减Money t_account");
         accountService.decrease(order.getUserId(), order.getMoney());
         log.info("----->订单微服务开始调用账户,做扣减End");
         // 4 修改订单状态，从0到1，1代表已完成
-        log.info("----->修改订单状态开始");
+        log.info("----->修改订单状态开始  t_order");
         orderDao.update(order.getId(), 0);
         log.info("----->下订单结束了,O(∩_∩)O哈哈~");
     }
